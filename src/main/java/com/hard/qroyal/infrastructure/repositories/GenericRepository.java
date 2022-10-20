@@ -1,4 +1,4 @@
-package com.hard.qroyal.infrastructure;
+package com.hard.qroyal.infrastructure.repositories;
 
 import org.springframework.data.repository.NoRepositoryBean;
 

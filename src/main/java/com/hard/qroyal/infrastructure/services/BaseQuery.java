@@ -1,7 +1,7 @@
 package com.hard.qroyal.infrastructure.services;
 
 import com.hard.qroyal.domain.BaseEntity;
-import com.hard.qroyal.infrastructure.GenericRepository;
+import com.hard.qroyal.infrastructure.repositories.GenericRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;

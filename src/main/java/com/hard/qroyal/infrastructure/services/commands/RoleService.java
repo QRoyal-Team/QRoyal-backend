@@ -5,4 +5,5 @@ import com.hard.qroyal.infrastructure.services.BaseService;
 
 public interface RoleService extends BaseService<Role> {
 
+	public Role findByName(String name);
 }

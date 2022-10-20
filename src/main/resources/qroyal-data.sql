@@ -13,14 +13,18 @@ VALUES ('First Watch', 'product1-1,product1-2', 'This is first watch', 10000, 0,
 
 INSERT INTO "public".role(name)
 VALUES ('ROLE_ADMIN'),
-       ('ROLE_USER'),
+       ('ROLE_CLIENT'),
        ('ROLE_STAFF');
 
 INSERT INTO "public".user(name, username, password, enabled, description)
-VALUES ('First User', 'fuser@gmail.com', '123', true, 'This is first user'),
-       ('Second User', 'suser@gmail.com', '123', true, 'This is second user'),
-       ('Thirt User', 'tuser@gmail.com', '123', true, 'This is thirt user'),
-       ('Alpha User', 'auser@gmail.com', '123', false, 'This is alpha user');
+VALUES ('First User', 'fuser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FTN.v7wWCZ9/AuT/0ZVBUUG6', true,
+        'This is first user'),
+       ('Second User', 'suser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FTN.v7wWCZ9/AuT/0ZVBUUG6', true,
+        'This is second user'),
+       ('Thirt User', 'tuser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FTN.v7wWCZ9/AuT/0ZVBUUG6', true,
+        'This is thirt user'),
+       ('Alpha User', 'auser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FTN.v7wWCZ9/AuT/0ZVBUUG6', false,
+        'This is alpha user');
 
 INSERT INTO "public".order(name, phone, address, status, description, created, user_id)
 VALUES ('First User', '0123456789', '100-chicago, america', 'waiting', '', CURRENT_DATE, 1),
@@ -53,5 +57,6 @@ VALUES (1, 1),
        (2, 2),
        (3, 3),
        (4, 2),
-       (1, 2);
+       (1, 2),
+       (1, 3);
 
