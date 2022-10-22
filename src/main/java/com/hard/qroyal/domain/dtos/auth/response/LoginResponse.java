@@ -1,4 +1,4 @@
-package com.hard.qroyal.domain.payloads.auth;
+package com.hard.qroyal.domain.dtos.auth.response;
 
 import lombok.Data;
 

@@ -7,4 +7,6 @@ import com.hard.qroyal.infrastructure.services.BaseService;
 public interface OtpMessageService extends BaseService<OtpMessage> {
 
 	public OtpMessage generateOtp(User user);
+
+	public OtpMessage regenerateOtp(User user);
 }

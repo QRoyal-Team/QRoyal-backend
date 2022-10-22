@@ -25,6 +25,18 @@ public class OtpMessageQuery extends BaseQuery<OtpMessage, OtpMessageRepository>
 		otpMessage.setCreated(created);
 		otpMessage.setExpired(expired);
 		otpMessage.setUser(user);
-		return repository.save(otpMessage);
+		return otpMessage;
+	}
+
+	@Override
+	public OtpMessage regenerateOtp(User user) {
+		String otpCode = String.valueOf(ThreadLocalRandom.current().nextInt(1000, 9999));
+		LocalDateTime created = LocalDateTime.now();
+		LocalDateTime expired = created.plus(Duration.of(3, ChronoUnit.MINUTES));
+		OtpMessage otpMessage = user.getOtpMessage();
+		otpMessage.setRandomCode(otpCode);
+		otpMessage.setCreated(created);
+		otpMessage.setExpired(expired);
+		return otpMessage;
 	}
 }

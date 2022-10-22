@@ -8,9 +8,16 @@ import java.io.UnsupportedEncodingException;
 
 public interface UserService extends BaseService<User> {
 
+	public User findByUsername(String username);
+
 	public UserDetails loadUserById(Long id);
 
 	public void register(User user) throws MessagingException, UnsupportedEncodingException;
 
-	public boolean verifyOtp(String username, String otpCode);
+	public void reSendVerificationEmail(String username)
+			throws MessagingException, UnsupportedEncodingException;
+
+	public void sendVerificationEmail(User user) throws MessagingException, UnsupportedEncodingException;
+
+	public String verifyOtp(String username, String otpCode);
 }

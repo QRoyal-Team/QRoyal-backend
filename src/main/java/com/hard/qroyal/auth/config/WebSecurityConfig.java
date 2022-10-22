@@ -92,10 +92,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/api/auth/login").permitAll();
-		http.authorizeRequests().antMatchers("/api/auth/admin").access("hasRole('ROLE_ADMIN')");
-		http.authorizeRequests().antMatchers("/api/auth/staff").access("hasRole('ROLE_STAFF')");
-		http.authorizeRequests().antMatchers("/api/auth/client").access("hasRole('ROLE_CLIENT')");
+		http.authorizeRequests().antMatchers("/api/auth/**").permitAll();
+		http.authorizeRequests().antMatchers("/api/authorization/admin").access("hasRole('ROLE_ADMIN')");
+		http.authorizeRequests().antMatchers("/api/authorization/staff", "/api/manager/**")
+				.access("hasRole('ROLE_STAFF')");
+		http.authorizeRequests().antMatchers("/api/authorization/client").access("hasRole('ROLE_CLIENT')");
 		http.authorizeRequests().anyRequest().authenticated();
 		http.httpBasic().authenticationEntryPoint(authenticationEntryPoint()).and().exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler());

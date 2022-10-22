@@ -23,6 +23,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserQuery extends BaseQuery<User, UserRepository> implements UserService, UserDetailsService {
@@ -49,31 +51,49 @@ public class UserQuery extends BaseQuery<User, UserRepository> implements UserSe
 	}
 
 	@Override
+	public User findByUsername(String username) {
+		return repository.findByUsername(username);
+	}
+
+	@Override
 	public UserDetails loadUserById(Long id) {
 		User user = repository.findById(id).orElse(null);
 		if (user == null) {
-			throw new ObjectNotFoundException("", id.toString());
+			throw new ObjectNotFoundException("Not found user with id: ", id.toString());
 		}
 		return new MyUserDetails(user);
 	}
 
 	@Override
 	public void register(User user) throws MessagingException, UnsupportedEncodingException {
+		if (repository.findByUsername(user.getUsername()) != null) {
+			reSendVerificationEmail(user.getUsername());
+		}
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		user.setEnabled(false);
+		user.setOtpMessage(otpMessageService.generateOtp(user));
 		User savedUser = repository.save(user);
-		otpMessageService.generateOtp(savedUser);
-		sendVerificationEmail(user);
+		sendVerificationEmail(savedUser);
 	}
 
+	@Override
+	public void reSendVerificationEmail(String username)
+			throws MessagingException, UnsupportedEncodingException {
+		User user = repository.findByUsername(username);
+		user.setOtpMessage(otpMessageService.regenerateOtp(user));
+		User userSaved = repository.save(user);
+		sendVerificationEmail(userSaved);
+	}
+
+	@Override
 	public void sendVerificationEmail(User user) throws MessagingException, UnsupportedEncodingException {
 		String toAddress = user.getUsername();
 		String fromAddress = "shopjavaweb@gmail.com";
-		String senderName = "Shop Java Web Welcome";
+		String senderName = "QRoyal Welcome";
 		String subject = "Please verify your registration";
 		String content = "Dear [[name]],<br>" + "Please enter your OTP to registration<br>"
-				+ "<h3>OTP CODE</h3><h2>[[OTP]]</h2>" + "Thank you,<br>" + "Shop JAVA";
+				+ "<h3>OTP CODE</h3><h2>[[OTP]]</h2>" + "Thank you,<br>" + "QRoyal Team";
 		MimeMessage message = javaMailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		helper.setFrom(fromAddress, senderName);
@@ -86,19 +106,24 @@ public class UserQuery extends BaseQuery<User, UserRepository> implements UserSe
 	}
 
 	@Override
-	public boolean verifyOtp(String username, String otpCode) {
+	public String verifyOtp(String username, String otpCode) {
 		User user = repository.findByUsername(username);
+		if (user.getEnabled()) {
+			return "Enabled";
+		}
 		if (otpCode.equals(user.getOtpMessage().getRandomCode())) {
 			if (Duration.between(LocalDateTime.now(), user.getOtpMessage().getExpired()).getSeconds() > 0) {
 				user.setEnabled(true);
-				Role role = roleService.findByName("ROLE_USER");
+				Role role = roleService.findByName("ROLE_CLIENT");
 				RoleAssignment roleAssignment = new RoleAssignment(user, role);
-				user.getRoleAssignments().add(roleAssignment);
+				List<RoleAssignment> roleAssignments = new ArrayList<>();
+				roleAssignments.add(roleAssignment);
+				user.setRoleAssignments(roleAssignments);
 				repository.save(user);
-				return true;
+				return "Verify Success";
 			}
-			return false;
+			return "OTP expired";
 		}
-		return false;
+		return "OTP invalid";
 	}
 }

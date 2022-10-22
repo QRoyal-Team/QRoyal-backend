@@ -36,7 +36,7 @@ public class User extends BaseEntity {
 	private Boolean enabled;
 
 	@JsonProperty("description")
-	@Column(name = "description", length = 2048, nullable = false)
+	@Column(name = "description", length = 2048)
 	private String description;
 
 	@JsonProperty("role_assignments")
