@@ -43,7 +43,7 @@ public class Product extends BaseEntity {
 	private String description;
 
 	@JsonProperty("images")
-	@Column(name = "images", length = 256)
+	@Column(name = "images", length = 2048)
 	@Convert(converter = StringToListConverter.class)
 	private List<String> images;
 

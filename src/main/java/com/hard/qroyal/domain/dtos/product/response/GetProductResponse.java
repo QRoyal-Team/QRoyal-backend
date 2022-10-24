@@ -3,7 +3,10 @@ package com.hard.qroyal.domain.dtos.product.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hard.qroyal.domain.BaseDTO;
 import com.hard.qroyal.domain.entities.Catalog;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetProductsResponse extends BaseDTO {
+public class GetProductResponse extends BaseDTO {
 
 	private static final long serialVersionUID = 8429058852742073621L;
 

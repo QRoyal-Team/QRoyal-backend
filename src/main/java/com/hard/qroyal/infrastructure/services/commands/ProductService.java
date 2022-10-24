@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 
 public interface ProductService extends BaseService<Product> {
 
-	public Page<Product> findAll(Integer size, Integer page);
+	public Page<Product> findAll(Integer size, Integer page, String sort, Boolean desc);
 }
