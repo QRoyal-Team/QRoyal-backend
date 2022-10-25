@@ -11,5 +11,5 @@ public interface BaseService<E extends BaseEntity> {
 
 	public abstract E save(E entity);
 
-	public abstract void delete(Long id);
+	public abstract void delete(E entity);
 }

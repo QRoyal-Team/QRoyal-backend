@@ -28,7 +28,7 @@ public class Catalog extends BaseEntity {
 	private String description;
 
 	@JsonProperty("products")
-	@OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "catalog", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Product> products;
 }

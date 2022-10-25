@@ -28,13 +28,13 @@ public class Review extends BaseEntity {
 	private String comment;
 
 	@JsonProperty("images")
-	@Column(name = "images", length = 256)
+	@Column(name = "images", length = 2048)
 	@Convert(converter = StringToListConverter.class)
 	private List<String> images;
 
 	@JsonProperty("created")
 	@Column(name = "created")
-	private LocalDateTime created;
+	private LocalDateTime created = LocalDateTime.now();
 
 	@JsonProperty("product")
 	@ManyToOne

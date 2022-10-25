@@ -1,6 +1,7 @@
 package com.hard.qroyal.domain.dtos.product.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hard.qroyal.domain.BaseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateProductRequest {
+public class UpdateProductRequest extends BaseDTO {
+
+	private static final long serialVersionUID = 5030803725466508732L;
 
 	@NotBlank
 	@JsonProperty("name")
@@ -41,4 +45,9 @@ public class CreateProductRequest {
 	@NotNull
 	@JsonProperty("catalog_id")
 	private Long catalogId;
+
+	@JsonProperty("image_actions")
+	private List<ImageAction> imagesActions;
 }
+
+

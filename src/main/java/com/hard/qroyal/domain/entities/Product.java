@@ -49,7 +49,7 @@ public class Product extends BaseEntity {
 
 	@JsonProperty("created")
 	@Column(name = "created")
-	private LocalDate created;
+	private LocalDate created = LocalDate.now();
 
 	@JsonProperty("catalog")
 	@ManyToOne
@@ -57,12 +57,12 @@ public class Product extends BaseEntity {
 	private Catalog catalog;
 
 	@JsonProperty("order_details")
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<OrderDetail> orderDetails;
 
 	@JsonProperty("reviews")
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Review> reviews;
 }

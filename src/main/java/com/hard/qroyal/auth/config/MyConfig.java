@@ -9,7 +9,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 @Configuration
 public class MyConfig {
 
-	@Bean
+	@Bean(name = "filterMultipartResolver")
 	public CommonsMultipartResolver commonsMultipartResolver() {
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
 		commonsMultipartResolver.setDefaultEncoding("UTF-8");
