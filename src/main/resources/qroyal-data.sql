@@ -26,11 +26,11 @@ VALUES ('First User', 'fuser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FT
        ('Alpha User', 'auser@gmail.com', '$2a$12$EL2CTBSN3KC3m39pK0G4re7rBKel2FTN.v7wWCZ9/AuT/0ZVBUUG6', false,
         'This is alpha user');
 
-INSERT INTO "public".order(name, phone, address, status, description, created, user_id)
-VALUES ('First User', '0123456789', '100-chicago, america', 'waiting', '', CURRENT_DATE, 1),
-       ('Second User', '0123456789', '100-chicago, america', 'delivery', '', CURRENT_DATE, 2),
-       ('Thirt User', '0123456789', '100-chicago, america', 'error', '', CURRENT_DATE, 3),
-       ('Alpha User', '0123456789', '100-chicago, america', 'complete', '', CURRENT_DATE, 4);
+INSERT INTO "public".order(name, phone, address, status, description, created, payment, user_id)
+VALUES ('First User', '0123456789', '100-chicago, america', 'waiting', '', CURRENT_DATE, 'paid', 1),
+       ('Second User', '0123456789', '100-chicago, america', 'delivery', '', CURRENT_DATE, 'paid', 2),
+       ('Thirt User', '0123456789', '100-chicago, america', 'error', '', CURRENT_DATE, 'paid', 3),
+       ('Alpha User', '0123456789', '100-chicago, america', 'complete', '', CURRENT_DATE, 'paid', 4);
 
 INSERT INTO "public".order_detail(quantity, total, order_id, product_id)
 VALUES ('10', '100000', 1, 1),

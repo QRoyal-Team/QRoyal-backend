@@ -26,7 +26,11 @@ public class Order extends BaseEntity {
 
 	@JsonProperty("status")
 	@Column(name = "status", length = 100, nullable = false)
-	private String status;
+	private String status = "Waiting Process";
+
+	@JsonProperty("payment")
+	@Column(name = "payment", length = 100, nullable = false)
+	private String payment;
 
 	@JsonProperty("name")
 	@Column(name = "name", length = 100, nullable = false)
@@ -42,7 +46,7 @@ public class Order extends BaseEntity {
 
 	@JsonProperty("created")
 	@Column(name = "created", nullable = false)
-	private LocalDateTime created;
+	private LocalDateTime created = LocalDateTime.now();
 
 	@JsonProperty("user")
 	@ManyToOne

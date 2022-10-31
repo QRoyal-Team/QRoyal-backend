@@ -4,6 +4,8 @@ import com.hard.qroyal.auth.MyUserDetails;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,14 @@ public class JwtTokenProvider {
 		return Jwts.builder().setSubject(Long.toString(userDetails.getUser().getId())).addClaims(claims)
 				.setIssuedAt(now).setExpiration(expiryDate).signWith(SignatureAlgorithm.HS512, JWT_SECRET)
 				.compact();
+	}
+
+	public String getJwtFromRequest(HttpServletRequest request) {
+		String bearerToken = request.getHeader("Authorization");
+		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+			return bearerToken.substring(7);
+		}
+		return null;
 	}
 
 	public Long getUserIdFromJWT(String token) {

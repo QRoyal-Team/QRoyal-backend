@@ -1,20 +1,19 @@
-package com.hard.qroyal.domain.validation;
+package com.hard.qroyal.integration.exception;
 
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class ValidationHandler {
+public class ExceptionHandler {
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<?> handleException(MethodArgumentNotValidException ex) {
+	@org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<?> validateHandleException(MethodArgumentNotValidException ex) {
 		ErrorDto dto = new ErrorDto(HttpStatus.BAD_REQUEST, "Validation error");
 		dto.setDetails(ex.getBindingResult().getAllErrors().stream()
 				.map(err -> err.unwrap(ConstraintViolation.class))

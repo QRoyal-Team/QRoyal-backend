@@ -49,6 +49,7 @@ CREATE TABLE "public".order
     address     VARCHAR(256) NOT NULL,
     phone       VARCHAR(256) NULL,
     created     TIMESTAMP    NOT NULL,
+    payment     VARCHAR(100) NOT NULL,
     user_id     INT8         NULL,
     CONSTRAINT order_pkey PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES "public".user (id)
