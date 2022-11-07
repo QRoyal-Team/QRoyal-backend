@@ -15,9 +15,9 @@ public class VNPayConfig {
 
 	public static String vnp_Returnurl = "http://localhost:8888/api/client/order/info";
 
-	public static String vnp_TmnCode = "DKSNLYZW";
+	public static String vnp_TmnCode = "UYNW1ONP";
 
-	public static String vnp_HashSecret = "VPNZSRTLQNZIONQCKNFQJFQBGTYTHPHX";
+	public static String vnp_HashSecret = "UPAUOWVZQPHOKDHVFIZONUXGDCFMUWGZ";
 
 	public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
 
