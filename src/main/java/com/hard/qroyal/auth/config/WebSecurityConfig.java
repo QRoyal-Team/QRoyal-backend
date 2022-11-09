@@ -101,5 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.httpBasic().authenticationEntryPoint(authenticationEntryPoint()).and().exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler());
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.cors();
 	}
 }

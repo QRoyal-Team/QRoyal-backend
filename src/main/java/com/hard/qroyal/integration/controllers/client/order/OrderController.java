@@ -81,7 +81,7 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		order.setPayment("Waiting");
 		service.save(order);
 		String vnp_Version = "2.1.0";
-		String vnp_Command = "2.0.0";
+		String vnp_Command = "querydr";
 		String vnp_OrderInfo = order.getId().toString();
 		String orderType = "billpayment";
 		String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
@@ -103,11 +103,11 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		vnp_Params.put("vnp_Locale", "vn");
 		vnp_Params.put("vnp_ReturnUrl", createOrderRequest.getPaymentRequest().getReturnUrl());
 		vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("UTCAsia/Saigon"));
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String vnp_CreateDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-		cld.add(Calendar.MINUTE, 15);
+		cld.add(Calendar.DATE, 1);
 		String vnp_ExpireDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());
