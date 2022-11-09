@@ -103,11 +103,11 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		vnp_Params.put("vnp_Locale", "vn");
 		vnp_Params.put("vnp_ReturnUrl", createOrderRequest.getPaymentRequest().getReturnUrl());
 		vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("UTCAsia/Saigon"));
+		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("UTCEurope/Ulyanovsk"));
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String vnp_CreateDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-		cld.add(Calendar.DATE, 1);
+		cld.add(Calendar.PM, 8);
 		String vnp_ExpireDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());
