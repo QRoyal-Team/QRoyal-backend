@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -24,7 +22,9 @@ public class JwtTokenProvider {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("name", userDetails.getUser().getName());
 		claims.put("username", userDetails.getUsername());
-		claims.put("role", userDetails.getAuthorities());
+		List<String> role = new ArrayList<>();
+		userDetails.getAuthorities().stream().forEach(value -> role.add(value.getAuthority()));
+		claims.put("role", role);
 		return Jwts.builder().setSubject(Long.toString(userDetails.getUser().getId())).addClaims(claims)
 				.setIssuedAt(now).setExpiration(expiryDate).signWith(SignatureAlgorithm.HS512, JWT_SECRET)
 				.compact();

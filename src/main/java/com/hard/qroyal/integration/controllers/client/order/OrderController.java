@@ -197,13 +197,14 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 							} else {
 								Order order = service.findById(Long.parseLong(vnpOrderInfo));
 								if (order != null) {
-									order.setPayment("Paid Failure");
-									service.save(order);
-									transactionResponse.setCode("02");
-									transactionResponse.setMessage("Failure");
-									transactionResponse.setOrderResponse(
-											mapper.mapOrderToOrderResponse(order));
-									transactionResponse.setData(null);
+									service.delete(order);
+									//									order.setPayment("Paid Failure");
+									//									service.save(order);
+									//									transactionResponse.setCode("02");
+									//									transactionResponse.setMessage("Failure");
+									//									transactionResponse.setOrderResponse(
+									//											mapper.mapOrderToOrderResponse(order));
+									//									transactionResponse.setData(null);
 								} else {
 									throw new EntityNotFoundException("Order not Found!");
 								}
