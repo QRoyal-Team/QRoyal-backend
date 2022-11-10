@@ -107,7 +107,7 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String vnp_CreateDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-		cld.add(Calendar.PM, 8);
+		cld.add(Calendar.HOUR, 8);
 		String vnp_ExpireDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());

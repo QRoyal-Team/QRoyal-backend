@@ -13,7 +13,7 @@ public class VNPayConfig {
 
 	public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 
-	public static String vnp_Returnurl = "http://localhost:8888/api/client/order/info";
+	public static String vnp_Returnurl = "http://https://qroyal.herokuapp.com/api/client/order/info";
 
 	public static String vnp_TmnCode = "UYNW1ONP";
 
