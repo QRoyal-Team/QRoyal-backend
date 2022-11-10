@@ -81,7 +81,7 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		order.setPayment("Waiting");
 		service.save(order);
 		String vnp_Version = "2.1.0";
-		String vnp_Command = "querydr";
+		String vnp_Command = "2.0.0";
 		String vnp_OrderInfo = order.getId().toString();
 		String orderType = "billpayment";
 		String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
@@ -107,7 +107,7 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
 		String vnp_CreateDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-		cld.add(Calendar.HOUR, 10);
+		cld.add(Calendar.MINUTE, 15);
 		String vnp_ExpireDate = formatter.format(cld.getTime());
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());
@@ -200,11 +200,11 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 									service.delete(order);
 									//									order.setPayment("Paid Failure");
 									//									service.save(order);
-									//									transactionResponse.setCode("02");
-									//									transactionResponse.setMessage("Failure");
-									//									transactionResponse.setOrderResponse(
-									//											mapper.mapOrderToOrderResponse(order));
-									//									transactionResponse.setData(null);
+									transactionResponse.setCode("02");
+									transactionResponse.setMessage("Failure");
+									transactionResponse.setOrderResponse(
+											mapper.mapOrderToOrderResponse(order));
+									transactionResponse.setData(null);
 								} else {
 									throw new EntityNotFoundException("Order not Found!");
 								}
