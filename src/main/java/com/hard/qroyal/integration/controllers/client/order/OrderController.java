@@ -112,7 +112,8 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 		log.info(vnp_CreateDate);
 		cld.add(Calendar.MINUTE, 15);
-		String vnp_ExpireDate = formatter.format(cld.getTime());
+		String vnp_ExpireDate = formatter.format(
+				ZonedDateTime.now().withZoneSameInstant(ZoneId.of("Asia/Saigon")).toLocalDateTime());
 		log.info(vnp_ExpireDate);
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());
