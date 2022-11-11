@@ -27,6 +27,9 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
@@ -103,9 +106,9 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		vnp_Params.put("vnp_Locale", "vn");
 		vnp_Params.put("vnp_ReturnUrl", createOrderRequest.getPaymentRequest().getReturnUrl());
 		vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Saigon"));
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-		String vnp_CreateDate = formatter.format(cld.getTime());
+		String vnp_CreateDate = getGmtTime("Asia/Saigon");
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 		log.info(vnp_CreateDate);
 		cld.add(Calendar.MINUTE, 15);
@@ -229,5 +232,11 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		}
 		return ResponseEntity.ok(transactionResponse);
 	}
+
+	public static String getGmtTime(String timezone) {
+		return ZonedDateTime.now().withZoneSameInstant(ZoneId.of(timezone)).toLocalDateTime()
+				.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+	}
 }
+
 
