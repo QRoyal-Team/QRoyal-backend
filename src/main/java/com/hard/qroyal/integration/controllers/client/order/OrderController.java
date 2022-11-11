@@ -26,7 +26,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -106,14 +105,12 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 		vnp_Params.put("vnp_Locale", "vn");
 		vnp_Params.put("vnp_ReturnUrl", createOrderRequest.getPaymentRequest().getReturnUrl());
 		vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-		Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Saigon"));
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-		String vnp_CreateDate = getGmtTime("Asia/Saigon");
+		String vnp_CreateDate = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("Asia/Saigon"))
+				.toLocalDateTime().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 		vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 		log.info(vnp_CreateDate);
-		cld.add(Calendar.MINUTE, 15);
-		String vnp_ExpireDate = formatter.format(
-				ZonedDateTime.now().withZoneSameInstant(ZoneId.of("Asia/Saigon")).toLocalDateTime());
+		String vnp_ExpireDate = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("Asia/Saigon"))
+				.toLocalDateTime().plusMinutes(15).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 		log.info(vnp_ExpireDate);
 		vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 		List fieldNames = new ArrayList(vnp_Params.keySet());
@@ -232,11 +229,6 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 			log.info("{\"RspCode\":\"99\",\"Message\":\"Unknow error\"}");
 		}
 		return ResponseEntity.ok(transactionResponse);
-	}
-
-	public static String getGmtTime(String timezone) {
-		return ZonedDateTime.now().withZoneSameInstant(ZoneId.of(timezone)).toLocalDateTime()
-				.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 	}
 }
 
