@@ -50,7 +50,7 @@ public class User extends BaseEntity {
 	private List<Order> orders;
 
 	@JsonProperty("otp_message")
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "user", cascade = { CascadeType.ALL, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	private OtpMessage otpMessage;
 
 	@JsonProperty("reviews")
