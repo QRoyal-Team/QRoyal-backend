@@ -63,7 +63,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/verify")
-	public ResponseEntity<?> register(@Valid @RequestBody VerifyRequest verifyRequest) {
+	public ResponseEntity<?> verify(@Valid @RequestBody VerifyRequest verifyRequest) {
 		String resulf = userService.verifyOtp(verifyRequest.getUsername(), verifyRequest.getOtpCode());
 		return ResponseEntity.ok(resulf);
 	}
