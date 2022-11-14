@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/client/product")
 public class ProductClientController extends BaseController<ProductService, ProductMapper> {
 
-	@GetMapping("/products")
+	@GetMapping("/gets")
 	public Page<GetProductResponse> getProducts(@RequestParam("size") Integer size,
 			@RequestParam("page") Integer page, @RequestParam("sort") String sort,
 			@RequestParam("desc") Boolean desc) {
@@ -23,7 +23,7 @@ public class ProductClientController extends BaseController<ProductService, Prod
 		return getProductsResponses;
 	}
 
-	@GetMapping("/product")
+	@GetMapping("/get")
 	public GetProductResponse getProducts(@RequestParam("id") Long id) {
 		GetProductResponse getProductsResponse = mapper.mapProductToGetProductsResponse(service.findById(id));
 		return getProductsResponse;
