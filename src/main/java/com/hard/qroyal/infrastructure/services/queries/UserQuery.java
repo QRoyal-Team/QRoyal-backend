@@ -13,6 +13,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -125,5 +126,17 @@ public class UserQuery extends BaseQuery<User, UserRepository> implements UserSe
 			return "OTP expired";
 		}
 		return "OTP invalid";
+	}
+
+	@Override
+	public User getCurrentUser() {
+		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			User user = repository.findByUsername(userDetails.getUsername());
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

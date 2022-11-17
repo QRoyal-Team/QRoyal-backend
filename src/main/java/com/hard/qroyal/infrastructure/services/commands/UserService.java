@@ -20,4 +20,6 @@ public interface UserService extends BaseService<User> {
 	public void sendVerificationEmail(User user) throws MessagingException, UnsupportedEncodingException;
 
 	public String verifyOtp(String username, String otpCode);
+
+	public User getCurrentUser();
 }

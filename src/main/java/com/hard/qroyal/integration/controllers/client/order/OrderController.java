@@ -17,8 +17,6 @@ import com.hard.qroyal.integration.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +44,7 @@ public class OrderController extends BaseController<OrderService, OrderMapper> {
 	public ResponseEntity<?> payment(@RequestBody CreateOrderRequest createOrderRequest,
 			HttpServletRequest request) throws UnsupportedEncodingException {
 		TransactionResponse transactionResponse = new TransactionResponse();
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		User user = userService.findByUsername(userDetails.getUsername());
+		User user = userService.getCurrentUser();
 		Order order = mapper.mapCreateOrderRequestToOrder(createOrderRequest);
 		List<OrderDetail> orderDetails = new ArrayList<>();
 		int amount = 0;
